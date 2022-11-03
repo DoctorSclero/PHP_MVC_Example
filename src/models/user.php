@@ -88,15 +88,15 @@ class User {
             "'{$user->getPatente()}'," . 
             "'{$user->getHobby()}'" . 
         ")";
-        Database::getDatabase()->query($query);
-        if (Database::getDatabase()->errno) {
-            die(Database::getDatabase()->error);
+        Database::getConnection()->query($query);
+        if (Database::getConnection()->errno) {
+            die(Database::getConnection()->error);
         }
     }
 
     public static function get(int $id_user) : User {
         $query = "SELECT * FROM users WHERE id_user='".$id_user."'";
-        $res = Database::getDatabase()->query($query);
+        $res = Database::getConnection()->query($query);
         $user = $res->fetch_assoc();
         return new User(
             $user["id_user"],
@@ -110,7 +110,7 @@ class User {
 
     public static function getList() : array {
         $query = "SELECT * FROM users";
-        $res = Database::getDatabase()->query($query);
+        $res = Database::getConnection()->query($query);
         while ($user = $res->fetch_assoc()) {
             $users[] = new User(
                 $user["id_user"],
@@ -133,9 +133,15 @@ class User {
         "patente = '{$user->getPatente()}', " . 
         "hobby = '{$user->getHobby()}' " . 
         "WHERE id_user = {$user->getId()}";
-        Database::getDatabase()->query($query);
-        if (Database::getDatabase()->errno) {
-            die(Database::getDatabase()->error);
+        Database::getConnection()->query($query);
+        if (Database::getConnection()->errno) {
+            die(Database::getConnection()->error);
         }
+    }
+
+    public static function delete(User $user) {
+        $query = "DELETE FROM users WHERE " . 
+        "id_user = '{$user->getId()}'";
+        Database::getConnection()->query($query);
     }
 }

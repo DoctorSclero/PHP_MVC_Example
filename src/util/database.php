@@ -2,7 +2,7 @@
 
     class Database {
         private static Database $instance;
-        private $db;
+        private $connection;
 
         private function __construct() {
             $host = "db";
@@ -14,15 +14,11 @@
             $this->db->select_db($db_name);
         }
         
-        private function _getDatabase() {
-            return $this->db;
-        }
-        
-        public static function getDatabase() {
+        public static function getConnection() {
             if (!isset(Database::$instance)) {
                 Database::$instance = new Database();
             }
-            return Database::$instance->_getDatabase();
+            return Database::$instance->connection;
         }
     }
     
