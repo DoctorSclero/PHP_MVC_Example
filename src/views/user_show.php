@@ -46,6 +46,7 @@
             echo "<td>" . $user->getProvincia() . "</td>\n";
             echo "<td>" . $user->getPatente() . "</td>\n";
             echo "<td>" . $user->getHobby() . "</td>\n";
+            echo "<td><a href='/controller/user_delete_performer.php?user_id=" . $user->getId() . "'>ELIMINA</a>\n";
             echo "</tr>";
         }
         ?>
