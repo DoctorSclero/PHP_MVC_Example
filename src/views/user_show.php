@@ -36,8 +36,6 @@
             <th>HOBBY</th>
         </tr>
         <?php
-        require_once("../models/user.php");
-        $users = User::getList();
         foreach ($users as $user) {
             echo "<tr>\n";
             echo "<td>" . $user->getId() . "</td>\n";
